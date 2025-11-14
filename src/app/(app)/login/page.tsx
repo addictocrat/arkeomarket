@@ -36,7 +36,7 @@ export default async function Login() {
 }
 
 export const metadata: Metadata = {
-  description: 'Login or create an account to get started.',
+  description: 'Giriş yapın veya hesap oluşturun.',
   openGraph: {
     title: 'Login',
     url: '/login',

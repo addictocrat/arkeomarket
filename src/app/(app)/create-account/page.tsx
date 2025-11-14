@@ -21,7 +21,7 @@ export default async function CreateAccount() {
 
   return (
     <div className="container py-16">
-      <h1 className="text-xl mb-4">Create Account</h1>
+      <h1 className="text-xl mb-4">Hesap Oluştur</h1>
       <RenderParams />
       <CreateAccountForm />
     </div>
@@ -29,7 +29,7 @@ export default async function CreateAccount() {
 }
 
 export const metadata: Metadata = {
-  description: 'Create an account or log in to your existing account.',
+  description: 'Hesap oluşturun veya hesabınıza giriş yapın.',
   openGraph: mergeOpenGraph({
     title: 'Account',
     url: '/account',
