@@ -27,15 +27,21 @@ export const Users: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ doc, operation, req }) => {
-        // Send a welcome email to the user after they are created
         if (operation !== 'create') return
+        if (!doc?.email) return
 
-        await req.payload.sendEmail({
-          to: doc.email,
-          from: 'Arkeomarket <atolye@arkeomarket.com>',
-          subject: "Arkeomarket'e Hoş Geldiniz!",
-          html: getWelcomeEmailHTML({ user: doc }),
-        })
+        try {
+          await req.payload.sendEmail({
+            to: doc.email,
+            from: 'Arkeomarket <atolye@arkeomarket.com>',
+            subject: "Arkeomarket'e Hoş Geldiniz!",
+            html: getWelcomeEmailHTML({ user: doc }),
+          })
+        } catch (error) {
+          // req.payload.logger?.error?.('Failed to send welcome email', { error, userId: doc.id })
+          console.log('Failed to send welcome email', { error, userId: doc.id })
+          // Intentionally do not rethrow — user creation should still succeed.
+        }
       },
     ],
   },
