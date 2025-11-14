@@ -63,7 +63,7 @@ export const ForgotPasswordForm: React.FC = () => {
 
             <FormItem className="mb-8">
               <Label htmlFor="email" className="mb-2">
-                Email address
+                Eposta Adresi
               </Label>
               <Input
                 id="email"

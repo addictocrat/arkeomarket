@@ -1,11 +1,10 @@
-import type { CollectionConfig } from 'payload'
-
 import { adminOnly } from '@/access/adminOnly'
 import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
-import { publicAccess } from '@/access/publicAccess'
 import { adminOrSelf } from '@/access/adminOrSelf'
+import { publicAccess } from '@/access/publicAccess'
 import { checkRole } from '@/access/utilities'
-
+import { getWelcomeEmailHTML } from '@/templates'
+import type { CollectionConfig } from 'payload'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 
 export const Users: CollectionConfig = {
@@ -24,6 +23,21 @@ export const Users: CollectionConfig = {
   },
   auth: {
     tokenExpiration: 1209600,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        // Send a welcome email to the user after they are created
+        if (operation !== 'create') return
+
+        await req.payload.sendEmail({
+          to: doc.email,
+          from: 'Arkeomarket <atolye@arkeomarket.com>',
+          subject: "Arkeomarket'e Hoş Geldiniz!",
+          html: getWelcomeEmailHTML({ user: doc }),
+        })
+      },
+    ],
   },
   fields: [
     {

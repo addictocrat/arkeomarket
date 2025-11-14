@@ -49,7 +49,7 @@ export const FindOrderForm: React.FC<Props> = ({ initialEmail }) => {
       <form className="max-w-lg flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
         <FormItem>
           <Label htmlFor="email" className="mb-2">
-            Email address
+            Eposta Adresi
           </Label>
           <Input
             id="email"

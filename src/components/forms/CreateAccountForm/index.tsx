@@ -85,23 +85,19 @@ export const CreateAccountForm: React.FC = () => {
       <div className="flex flex-col gap-8 mb-8">
         <FormItem>
           <Label htmlFor="email" className="mb-2">
-            Email Address
+            Eposta Adresi
           </Label>
-          <Input
-            id="email"
-            {...register('email', { required: 'Email is required.' })}
-            type="email"
-          />
+          <Input id="email" {...register('email', { required: 'Email giriniz.' })} type="email" />
           {errors.email && <FormError message={errors.email.message} />}
         </FormItem>
 
         <FormItem>
           <Label htmlFor="password" className="mb-2">
-            New password
+            Yeni şifreniz
           </Label>
           <Input
             id="password"
-            {...register('password', { required: 'Password is required.' })}
+            {...register('password', { required: 'Şifre giriniz.' })}
             type="password"
           />
           {errors.password && <FormError message={errors.password.message} />}
@@ -109,7 +105,7 @@ export const CreateAccountForm: React.FC = () => {
 
         <FormItem>
           <Label htmlFor="passwordConfirm" className="mb-2">
-            Confirm Password
+            Şifreyi tekrar edin
           </Label>
           <Input
             id="passwordConfirm"
@@ -123,13 +119,13 @@ export const CreateAccountForm: React.FC = () => {
         </FormItem>
       </div>
       <Button disabled={loading} type="submit" variant="default">
-        {loading ? 'Processing' : 'Create Account'}
+        {loading ? 'Yükleniyor...' : 'Hesap Oluştur'}
       </Button>
 
       <div className="prose dark:prose-invert mt-8">
         <p>
-          {'Already have an account? '}
-          <Link href={`/login${allParams}`}>Login</Link>
+          {'Zaten bir hesabım var! '}
+          <Link href={`/login${allParams}`}>Giriş yap</Link>
         </p>
       </div>
     </form>
