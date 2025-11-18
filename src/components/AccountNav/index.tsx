@@ -23,7 +23,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
                 'text-primary/100': pathname === '/account',
               })}
             >
-              Account settings
+              Hesap ayarları
             </Link>
           </Button>
         </li>
@@ -36,7 +36,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
                 'text-primary/100': pathname === '/account/addresses',
               })}
             >
-              Addresses
+              Adreslerim
             </Link>
           </Button>
         </li>
@@ -49,7 +49,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
               'text-primary/100': pathname === '/orders' || pathname.includes('/orders'),
             })}
           >
-            <Link href="/orders">Orders</Link>
+            <Link href="/orders">Siparişlerim</Link>
           </Button>
         </li>
       </ul>
@@ -63,7 +63,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
           'text-primary/100': pathname === '/logout',
         })}
       >
-        <Link href="/logout">Log out</Link>
+        <Link href="/logout">Çıkış yap</Link>
       </Button>
     </div>
   )

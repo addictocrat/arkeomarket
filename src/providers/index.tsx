@@ -3,9 +3,9 @@ import { EcommerceProvider } from '@payloadcms/plugin-ecommerce/client/react'
 import { stripeAdapterClient } from '@payloadcms/plugin-ecommerce/payments/stripe'
 import React from 'react'
 
+import { SonnerProvider } from '@/providers/Sonner'
 import { HeaderThemeProvider } from './HeaderTheme'
 import { ThemeProvider } from './Theme'
-import { SonnerProvider } from '@/providers/Sonner'
 
 export const Providers: React.FC<{
   children: React.ReactNode
@@ -17,6 +17,23 @@ export const Providers: React.FC<{
           <SonnerProvider />
           <EcommerceProvider
             enableVariants={true}
+            currenciesConfig={{
+              defaultCurrency: 'TRY',
+              supportedCurrencies: [
+                {
+                  decimals: 2,
+                  code: 'TRY',
+                  label: 'Turkish Lira',
+                  symbol: '₺',
+                },
+                {
+                  decimals: 2,
+                  code: 'USD',
+                  label: 'US Dollar',
+                  symbol: '$',
+                },
+              ],
+            }}
             api={{
               cartsFetchQuery: {
                 depth: 2,

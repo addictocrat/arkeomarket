@@ -1,16 +1,17 @@
 'use client'
-import { CMSLink } from '@/components/Link'
 import { Cart } from '@/components/Cart'
 import { OpenCartButton } from '@/components/Cart/OpenCart'
+import { CMSLink } from '@/components/Link'
+import { Button } from '@/components/ui/button'
+import { useAuth } from '@/providers/Auth'
 import Link from 'next/link'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 
-import { MobileMenu } from './MobileMenu'
 import type { Header } from 'src/payload-types'
+import { MobileMenu } from './MobileMenu'
 
-import { LogoIcon } from '@/components/icons/logo'
-import { usePathname } from 'next/navigation'
 import { cn } from '@/utilities/cn'
+import { usePathname } from 'next/navigation'
 
 type Props = {
   header: Header
@@ -18,6 +19,7 @@ type Props = {
 
 export function HeaderClient({ header }: Props) {
   const menu = header.navItems || []
+  const { user } = useAuth()
   const pathname = usePathname()
 
   return (
@@ -30,8 +32,12 @@ export function HeaderClient({ header }: Props) {
         </div>
         <div className="flex w-full items-end justify-between">
           <div className="flex w-full items-end gap-6 md:w-1/3">
-            <Link className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto" href="/">
-              <LogoIcon className="w-6 h-auto" />
+            <Link
+              className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto font-bold"
+              href="/"
+            >
+              {/* <LogoIcon className="w-6 h-auto" /> */}
+              Arkeomarket
             </Link>
             {menu.length ? (
               <ul className="hidden gap-4 text-sm md:flex md:items-center">
@@ -57,6 +63,34 @@ export function HeaderClient({ header }: Props) {
           <div className="flex justify-end md:w-1/3 gap-4">
             <Suspense fallback={<OpenCartButton />}>
               <Cart />
+              {user ? (
+                <Button
+                  asChild
+                  variant="nav"
+                  size="clear"
+                  className="navLink relative items-end hover:cursor-pointer"
+                >
+                  <Link href="/account">Hesabım</Link>
+                </Button>
+              ) : (
+                // <Button asChild variant="outline">
+                //   <Link href="/logout">Çıkış yap</Link>
+                // </Button>
+                <>
+                  <Button
+                    asChild
+                    variant="nav"
+                    size="clear"
+                    className="navLink relative items-end hover:cursor-pointer"
+                  >
+                    <Link href="/login">Giriş yap</Link>
+                  </Button>
+
+                  {/* <Button asChild>
+                    <Link href="/create-account">Hesap oluştur</Link>
+                  </Button> */}
+                </>
+              )}
             </Suspense>
           </div>
         </div>
