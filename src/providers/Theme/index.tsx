@@ -47,11 +47,15 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
-    document.documentElement.setAttribute('data-theme', themeToSet)
-    setThemeState(themeToSet)
+    document.documentElement.setAttribute('data-theme', defaultTheme)
+    setThemeState(defaultTheme)
   }, [])
 
-  return <ThemeContext.Provider value={{ setTheme, theme }}>{children}</ThemeContext.Provider>
+  return (
+    <ThemeContext.Provider value={{ setTheme, theme: defaultTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  )
 }
 
 export const useTheme = (): ThemeContextType => useContext(ThemeContext)
