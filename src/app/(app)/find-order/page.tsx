@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import React from 'react'
 import { FindOrderForm } from '@/components/forms/FindOrderForm'
-import { getPayload } from 'payload'
-import { headers as getHeaders } from 'next/headers.js'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import configPromise from '@payload-config'
+import { headers as getHeaders } from 'next/headers.js'
+import { getPayload } from 'payload'
 
 export default async function FindOrderPage() {
   const headers = await getHeaders()
@@ -20,10 +19,10 @@ export default async function FindOrderPage() {
 }
 
 export const metadata: Metadata = {
-  description: 'Find your order with us using your email.',
+  description: 'Eposta adresinizle siparişi bulun.',
   openGraph: mergeOpenGraph({
-    title: 'Find order',
+    title: 'Siparişi Bul',
     url: '/find-order',
   }),
-  title: 'Find order',
+  title: 'Siparişi Bul',
 }

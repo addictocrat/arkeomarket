@@ -1,6 +1,6 @@
 'use client'
+import { AddressForm } from '@/components/forms/AddressForm'
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -9,9 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { AddressForm } from '@/components/forms/AddressForm'
 import { Address } from '@/payload-types'
 import { DefaultDocumentIDType } from 'payload'
+import React, { useState } from 'react'
 
 type Props = {
   addressID?: DefaultDocumentIDType
@@ -26,8 +26,8 @@ type Props = {
 export const CreateAddressModal: React.FC<Props> = ({
   addressID,
   initialData,
-  buttonText = 'Add a new address',
-  modalTitle = 'Add a new address',
+  buttonText = 'Yeni adres ekle',
+  modalTitle = 'Yeni adres ekle',
   callback,
   skipSubmission,
   disabled,
@@ -57,7 +57,7 @@ export const CreateAddressModal: React.FC<Props> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
-          <DialogDescription>This address will be connected to your account.</DialogDescription>
+          <DialogDescription>Bu adres hesabınıza kaydedilecektir.</DialogDescription>
         </DialogHeader>
 
         <AddressForm

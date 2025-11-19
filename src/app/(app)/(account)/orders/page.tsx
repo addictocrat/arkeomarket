@@ -4,10 +4,10 @@ import type { Metadata } from 'next'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
 import { OrderItem } from '@/components/OrderItem'
-import { headers as getHeaders } from 'next/headers'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { headers as getHeaders } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { getPayload } from 'payload'
 
 export default async function Orders() {
   const headers = await getHeaders()
@@ -40,9 +40,9 @@ export default async function Orders() {
   return (
     <>
       <div className="border p-8 rounded-lg bg-primary-foreground w-full">
-        <h1 className="text-3xl font-medium mb-8">Orders</h1>
+        <h1 className="text-3xl font-medium mb-8">Siparişlerim</h1>
         {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="">You have no orders.</p>
+          <p className="">Siparişiniz bulunmamaktadır.</p>
         )}
 
         {orders && orders.length > 0 && (
@@ -60,10 +60,10 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  description: 'Your orders.',
+  description: 'Siparişleriniz burada gözükür.',
   openGraph: mergeOpenGraph({
-    title: 'Orders',
+    title: 'Siparişlerim',
     url: '/orders',
   }),
-  title: 'Orders',
+  title: 'Siparişlerim',
 }

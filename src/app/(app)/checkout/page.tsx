@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
 
@@ -32,7 +32,7 @@ export default function Checkout() {
         </div>
       )}
 
-      <h1 className="sr-only">Checkout</h1>
+      <h1 className="sr-only">Ödeme</h1>
 
       <CheckoutPage />
     </div>
@@ -40,10 +40,10 @@ export default function Checkout() {
 }
 
 export const metadata: Metadata = {
-  description: 'Checkout.',
+  description: 'Ödeme.',
   openGraph: mergeOpenGraph({
-    title: 'Checkout',
+    title: 'Ödeme',
     url: '/checkout',
   }),
-  title: 'Checkout',
+  title: 'Ödeme',
 }

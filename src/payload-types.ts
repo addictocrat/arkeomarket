@@ -1832,6 +1832,9 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  paytrlogo?: (string | null) | Media;
+  turkeylogo?: (string | null) | Media;
+  bankslogo?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1877,6 +1880,9 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  paytrlogo?: T;
+  turkeylogo?: T;
+  bankslogo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

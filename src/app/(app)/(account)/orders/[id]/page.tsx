@@ -1,19 +1,19 @@
 import type { Order } from '@/payload-types'
 import type { Metadata } from 'next'
 
+import { OrderStatus } from '@/components/OrderStatus'
 import { Price } from '@/components/Price'
+import { ProductItem } from '@/components/ProductItem'
+import { AddressItem } from '@/components/addresses/AddressItem'
 import { Button } from '@/components/ui/button'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import configPromise from '@payload-config'
+import { ChevronLeftIcon } from 'lucide-react'
+import { headers as getHeaders } from 'next/headers.js'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ChevronLeftIcon } from 'lucide-react'
-import { ProductItem } from '@/components/ProductItem'
-import { headers as getHeaders } from 'next/headers.js'
-import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { OrderStatus } from '@/components/OrderStatus'
-import { AddressItem } from '@/components/addresses/AddressItem'
 
 export const dynamic = 'force-dynamic'
 
@@ -113,7 +113,7 @@ export default async function Order({ params, searchParams }: PageProps) {
             <Button asChild variant="ghost">
               <Link href="/orders">
                 <ChevronLeftIcon />
-                All orders
+                Tüm Siparişler
               </Link>
             </Button>
           </div>
@@ -129,7 +129,9 @@ export default async function Order({ params, searchParams }: PageProps) {
       <div className="bg-card border rounded-lg px-6 py-4 flex flex-col gap-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:justify-between">
           <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Order Date</p>
+            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">
+              Sipariş Edilme Tarihi
+            </p>
             <p className="text-lg">
               <time dateTime={order.createdAt}>
                 {formatDateTime({ date: order.createdAt, format: 'MMMM dd, yyyy' })}
@@ -138,13 +140,13 @@ export default async function Order({ params, searchParams }: PageProps) {
           </div>
 
           <div className="">
-            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Total</p>
+            <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Tutar</p>
             {order.amount && <Price className="text-lg" amount={order.amount} />}
           </div>
 
           {order.status && (
             <div className="grow max-w-1/3">
-              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Status</p>
+              <p className="font-mono uppercase text-primary/50 mb-1 text-sm">Durum</p>
               <OrderStatus className="text-sm" status={order.status} />
             </div>
           )}
@@ -152,7 +154,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.items && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Items</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Ürünler</h2>
             <ul className="flex flex-col gap-6">
               {order.items?.map((item, index) => {
                 if (typeof item.product === 'string') {
@@ -160,7 +162,7 @@ export default async function Order({ params, searchParams }: PageProps) {
                 }
 
                 if (!item.product || typeof item.product !== 'object') {
-                  return <div key={index}>This item is no longer available.</div>
+                  return <div key={index}>Bu ürün mevcut değil.</div>
                 }
 
                 const variant =
@@ -182,7 +184,7 @@ export default async function Order({ params, searchParams }: PageProps) {
 
         {order.shippingAddress && (
           <div>
-            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Shipping Address</h2>
+            <h2 className="font-mono text-primary/50 mb-4 uppercase text-sm">Teslim Adresiniz</h2>
 
             {/* @ts-expect-error - some kind of type hell */}
             <AddressItem address={order.shippingAddress} hideActions />
@@ -199,9 +201,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     description: `Order details for order ${id}.`,
     openGraph: mergeOpenGraph({
-      title: `Order ${id}`,
+      title: `Sipariş no ${id}`,
       url: `/orders/${id}`,
     }),
-    title: `Order ${id}`,
+    title: `Sipariş no ${id}`,
   }
 }

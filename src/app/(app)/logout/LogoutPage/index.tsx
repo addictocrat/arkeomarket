@@ -34,7 +34,7 @@ export const LogoutPage: React.FC = (props) => {
               <Link href="/search">buraya tıklayın.</Link>
             </Fragment>
             {` Tekrar giriş yapmak için, `}
-            <Link href="/login">buraya tıklayın.</Link>.
+            <Link href="/login">hesabınıza giriş yapın.</Link>.
           </p>
         </div>
       )}

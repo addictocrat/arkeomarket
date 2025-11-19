@@ -182,10 +182,10 @@ export const AccountForm: React.FC = () => {
       )}
       <Button disabled={isLoading || isSubmitting || !isDirty} type="submit" variant="default">
         {isLoading || isSubmitting
-          ? 'Processing'
+          ? 'Kaydediliyor...'
           : changePassword
-            ? 'Change Password'
-            : 'Update Account'}
+            ? 'Şifreyi Değiştir'
+            : 'Hesabı Güncelle'}
       </Button>
     </form>
   )

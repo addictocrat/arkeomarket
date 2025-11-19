@@ -1,15 +1,15 @@
 import type { Metadata } from 'next'
 
-import { Button } from '@/components/ui/button'
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import Link from 'next/link'
-import { headers as getHeaders } from 'next/headers.js'
-import configPromise from '@payload-config'
 import { AccountForm } from '@/components/forms/AccountForm'
-import { Order } from '@/payload-types'
 import { OrderItem } from '@/components/OrderItem'
-import { getPayload } from 'payload'
+import { Button } from '@/components/ui/button'
+import { Order } from '@/payload-types'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import configPromise from '@payload-config'
+import { headers as getHeaders } from 'next/headers.js'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { getPayload } from 'payload'
 
 export default async function AccountPage() {
   const headers = await getHeaders()
@@ -78,7 +78,7 @@ export default async function AccountPage() {
         )}
 
         <Button asChild variant="default">
-          <Link href="/orders">Tüm Siparişleri Görüntüle</Link>
+          <Link href="/orders">Tüm Siparişlerim</Link>
         </Button>
       </div>
     </>
@@ -88,8 +88,8 @@ export default async function AccountPage() {
 export const metadata: Metadata = {
   description: 'Bir hesap oluşturun veya mevcut hesabınıza giriş yapın.',
   openGraph: mergeOpenGraph({
-    title: 'Hesap',
+    title: 'Hesabım',
     url: '/account',
   }),
-  title: 'Hesap',
+  title: 'Hesabım',
 }

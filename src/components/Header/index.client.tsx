@@ -12,6 +12,7 @@ import { MobileMenu } from './MobileMenu'
 
 import { cn } from '@/utilities/cn'
 import { usePathname } from 'next/navigation'
+import { LogoIcon } from '../icons/logo'
 
 type Props = {
   header: Header
@@ -36,8 +37,7 @@ export function HeaderClient({ header }: Props) {
               className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto font-bold"
               href="/"
             >
-              {/* <LogoIcon className="w-6 h-auto" /> */}
-              Arkeomarket
+              <LogoIcon className="w-32 h-auto" />
             </Link>
             {menu.length ? (
               <ul className="hidden gap-4 text-sm md:flex md:items-center">

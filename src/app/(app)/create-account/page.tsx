@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 
 import { RenderParams } from '@/components/RenderParams'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import React from 'react'
-import { headers as getHeaders } from 'next/headers'
 import configPromise from '@payload-config'
+import { headers as getHeaders } from 'next/headers'
 import { getPayload } from 'payload'
 
 import { CreateAccountForm } from '@/components/forms/CreateAccountForm'
@@ -31,8 +30,8 @@ export default async function CreateAccount() {
 export const metadata: Metadata = {
   description: 'Hesap oluşturun veya hesabınıza giriş yapın.',
   openGraph: mergeOpenGraph({
-    title: 'Account',
+    title: 'Hesabım',
     url: '/account',
   }),
-  title: 'Account',
+  title: 'Hesabım',
 }
