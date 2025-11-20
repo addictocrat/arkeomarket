@@ -16,7 +16,7 @@ import { useAuth } from '@/providers/Auth'
 import { MenuIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   menu: Header['navItems']
@@ -98,7 +98,7 @@ export function MobileMenu({ menu }: Props) {
               <Button asChild className="w-full" variant="outline">
                 <Link href="/login">Giriş yap</Link>
               </Button>
-              <span>or</span>
+              <span>veya</span>
               <Button asChild className="w-full">
                 <Link href="/create-account">Hesap oluştur</Link>
               </Button>

@@ -4,8 +4,8 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
 export const metadata = {
-  description: 'Search for products in the store.',
-  title: 'Shop',
+  description: 'Eski Çağ Aletlerimize göz atın.',
+  title: 'Aletler',
 }
 
 type SearchParams = { [key: string]: string | string[] | undefined }
