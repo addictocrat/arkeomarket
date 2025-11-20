@@ -19,19 +19,19 @@ export const Footer: GlobalConfig = {
       maxRows: 6,
     },
     {
-      name: 'paytrlogo',
+      name: 'banks',
       type: 'upload',
       relationTo: 'media',
       required: false,
     },
     {
-      name: 'turkeylogo',
+      name: 'turkeyflag',
       type: 'upload',
       relationTo: 'media',
       required: false,
     },
     {
-      name: 'bankslogo',
+      name: 'paytr',
       type: 'upload',
       relationTo: 'media',
       required: false,

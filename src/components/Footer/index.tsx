@@ -12,7 +12,7 @@ const { COMPANY_NAME, SITE_NAME } = process.env
 export async function Footer(props?: Partial<Footer>) {
   // if parent passed footer fields, use them; otherwise fetch the global
   const footer: Footer =
-    props && (props.paytrlogo || props.turkeylogo || props.bankslogo || props.navItems)
+    props && (props.paytr || props.turkeyflag || props.banks || props.navItems)
       ? (props as Footer)
       : await getCachedGlobal('footer', 2)()
 
@@ -24,12 +24,10 @@ export async function Footer(props?: Partial<Footer>) {
   const copyrightName = COMPANY_NAME || SITE_NAME || ''
 
   // --- safe logo extraction (same pattern as your ProductGridItem)
-  const paytrLogo =
-    footer.paytrlogo && typeof footer.paytrlogo !== 'string' ? footer.paytrlogo : undefined
+  const paytrLogo = footer.paytr && typeof footer.paytr !== 'string' ? footer.paytr : undefined
   const turkeyLogo =
-    footer.turkeylogo && typeof footer.turkeylogo !== 'string' ? footer.turkeylogo : undefined
-  const banksLogo =
-    footer.bankslogo && typeof footer.bankslogo !== 'string' ? footer.bankslogo : undefined
+    footer.turkeyflag && typeof footer.turkeyflag !== 'string' ? footer.turkeyflag : undefined
+  const banks = footer.banks && typeof footer.banks !== 'string' ? footer.banks : undefined
 
   return (
     <footer className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -42,9 +40,9 @@ export async function Footer(props?: Partial<Footer>) {
               imgClassName="w-[60%] "
             />
           ) : null} */}
-          {banksLogo ? (
+          {banks ? (
             <Media
-              resource={banksLogo}
+              resource={banks}
               className="flex justify-center items-center w-full"
               imgClassName="w-full"
             />
@@ -90,7 +88,7 @@ export async function Footer(props?: Partial<Footer>) {
       </div>
 
       <div className="container   text-sm dark:border-neutral-700">
-        <div className="py-6 border-t border-neutral-200 mx-auto flex w-full flex-col items-center gap-1 md:flex-row md:gap-0">
+        <div className="py-6 border-t border-neutral-200 mx-auto flex w-full flex-col items-center gap-1 md:flex-row md:gap-0 dark:border-neutral-700">
           <p>
             &copy; {copyrightDate} {copyrightName}
           </p>

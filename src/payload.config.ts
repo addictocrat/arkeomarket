@@ -32,6 +32,17 @@ export default buildConfig({
       beforeLogin: ['@/components/BeforeLogin#BeforeLogin'],
       beforeDashboard: ['@/components/BeforeDashboard#BeforeDashboard'],
     },
+    meta: {
+      title: 'My Admin Panel',
+      description: 'The best admin panel in the world',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/svg',
+          url: 'assets/favicon.svg',
+        },
+      ],
+    },
     user: Users.slug,
   },
   collections: [Users, Pages, Categories, Media],
