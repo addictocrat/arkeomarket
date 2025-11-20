@@ -38,8 +38,8 @@ export default buildConfig({
       icons: [
         {
           rel: 'icon',
-          type: 'image/svg',
-          url: 'assets/favicon.svg',
+          type: 'image/x-icon',
+          url: '/favicon.ico',
         },
       ],
     },
