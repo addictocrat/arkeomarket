@@ -79,7 +79,7 @@ export const LoginForm: React.FC = () => {
           </Link>
         </Button>
         <Button className="grow" disabled={isLoading} size="lg" type="submit" variant="default">
-          {isLoading ? 'Oluşturuluyor' : 'Oluştur'}
+          {isLoading ? 'Giriş Yapılılıyor...' : 'Giriş Yap'}
         </Button>
       </div>
     </form>
