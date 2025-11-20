@@ -38,9 +38,6 @@ importers:
       '@payloadcms/richtext-lexical':
         specifier: 3.64.0
         version: 3.64.0(@faceless-ui/modal@3.0.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@faceless-ui/scroll-info@2.0.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@payloadcms/next@3.64.0(@types/react@19.0.1)(graphql@16.12.0)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2))(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)(yjs@13.6.27)
-      '@payloadcms/storage-r2':
-        specifier: ^3.64.0
-        version: 3.64.0(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)
       '@payloadcms/storage-s3':
         specifier: ^3.64.0
         version: 3.64.0(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)
@@ -1377,12 +1374,6 @@ packages:
       payload: 3.64.0
       react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
       react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
-
-  '@payloadcms/storage-r2@3.64.0':
-    resolution: {integrity: sha512-Dh4MMRW9+oGE872hZf8WUWut0JiFtn0RDCfgplPaaCGtERLFYDUXgB+BOaE/PiW0XtCy+BV2LIFjmtQMG86EtA==}
-    engines: {node: ^18.20.2 || >=20.9.0}
-    peerDependencies:
-      payload: 3.64.0
 
   '@payloadcms/storage-s3@3.64.0':
     resolution: {integrity: sha512-1ho618AWTSxtkOvKv2XTfo2WJXnuNdYIQ7L3jCzpwEDf1ASLg1/5Ml3wP1xvb+sp96GcHCu9Rzq4b6WBnLc3dQ==}
@@ -6858,19 +6849,6 @@ snapshots:
       - supports-color
       - typescript
       - yjs
-
-  '@payloadcms/storage-r2@3.64.0(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)':
-    dependencies:
-      '@payloadcms/plugin-cloud-storage': 3.64.0(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)
-      payload: 3.64.0(graphql@16.12.0)(typescript@5.7.2)
-    transitivePeerDependencies:
-      - '@types/react'
-      - monaco-editor
-      - next
-      - react
-      - react-dom
-      - supports-color
-      - typescript
 
   '@payloadcms/storage-s3@3.64.0(@types/react@19.0.1)(monaco-editor@0.54.0)(next@15.5.6(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(sass@1.77.4))(payload@3.64.0(graphql@16.12.0)(typescript@5.7.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.7.2)':
     dependencies:

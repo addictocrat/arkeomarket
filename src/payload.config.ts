@@ -96,9 +96,7 @@ export default buildConfig({
         region: 'auto', // for R2, use "auto" per Cloudflare docs :contentReference[oaicite:1]{index=1}
         endpoint: process.env.R2_ENDPOINT!, // full S3 endpoint
         forcePathStyle: true,
-        signatureVersion: 'v4',
       },
-      baseUrl: process.env.R2_PUBLIC_URL!, // for serving via your public URL
     }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
