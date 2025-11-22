@@ -8,11 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/providers/Auth'
 import { useTheme } from '@/providers/Theme'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
 
 import { AddressItem } from '@/components/addresses/AddressItem'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
@@ -21,13 +18,9 @@ import { CheckoutForm } from '@/components/forms/CheckoutForm'
 import { FormItem } from '@/components/forms/FormItem'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Checkbox } from '@/components/ui/checkbox'
-import { cssVariables } from '@/cssVariables'
 import { Address } from '@/payload-types'
-import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
-import { toast } from 'sonner'
-
-const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-const stripe = loadStripe(apiKey)
+import { useAddresses, useCart } from '@payloadcms/plugin-ecommerce/client/react'
+import React, { useEffect, useState } from 'react'
 
 export const CheckoutPage: React.FC = () => {
   const { user } = useAuth()
@@ -40,8 +33,7 @@ export const CheckoutPage: React.FC = () => {
    */
   const [email, setEmail] = useState('')
   const [emailEditable, setEmailEditable] = useState(true)
-  const [paymentData, setPaymentData] = useState<null | Record<string, unknown>>(null)
-  const { initiatePayment } = usePayments()
+  const [showPaymentForm, setShowPaymentForm] = useState(false)
   const { addresses } = useAddresses()
   const [shippingAddress, setShippingAddress] = useState<Partial<Address>>()
   const [billingAddress, setBillingAddress] = useState<Partial<Address>>()
@@ -76,37 +68,6 @@ export const CheckoutPage: React.FC = () => {
     }
   }, [])
 
-  const initiatePaymentIntent = useCallback(
-    async (paymentID: string) => {
-      try {
-        const paymentData = (await initiatePayment(paymentID, {
-          additionalData: {
-            ...(email ? { customerEmail: email } : {}),
-            billingAddress,
-            shippingAddress: billingAddressSameAsShipping ? billingAddress : shippingAddress,
-          },
-        })) as Record<string, unknown>
-
-        if (paymentData) {
-          setPaymentData(paymentData)
-        }
-      } catch (error) {
-        const errorData = error instanceof Error ? JSON.parse(error.message) : {}
-        let errorMessage = 'An error occurred while initiating payment.'
-
-        if (errorData?.cause?.code === 'OutOfStock') {
-          errorMessage = 'One or more items in your cart are out of stock.'
-        }
-
-        setError(errorMessage)
-        toast.error(errorMessage)
-      }
-    },
-    [billingAddress, billingAddressSameAsShipping, shippingAddress],
-  )
-
-  if (!stripe) return null
-
   if (cartIsEmpty && isProcessingPayment) {
     return (
       <div className="py-12 w-full items-center justify-center">
@@ -128,7 +89,7 @@ export const CheckoutPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-stretch justify-stretch my-8 md:flex-row grow gap-10 md:gap-6 lg:gap-8">
+    <div className="flex flex-col items-stretch justify-stretch my-8 mb-32 md:flex-row grow gap-10 md:gap-6 lg:gap-8">
       <div className="basis-full lg:basis-2/3 flex flex-col gap-8 justify-stretch">
         <h2 className="font-medium text-3xl">İletişim</h2>
         {!user && (
@@ -195,7 +156,7 @@ export const CheckoutPage: React.FC = () => {
               actions={
                 <Button
                   variant={'outline'}
-                  disabled={Boolean(paymentData)}
+                  disabled={showPaymentForm}
                   onClick={(e) => {
                     e.preventDefault()
                     setBillingAddress(undefined)
@@ -223,7 +184,7 @@ export const CheckoutPage: React.FC = () => {
           <Checkbox
             id="shippingTheSameAsBilling"
             checked={billingAddressSameAsShipping}
-            disabled={Boolean(paymentData || (!user && (!email || Boolean(emailEditable))))}
+            disabled={Boolean(showPaymentForm || (!user && (!email || Boolean(emailEditable))))}
             onCheckedChange={(state) => {
               setBillingAddressSameAsShipping(state as boolean)
             }}
@@ -239,7 +200,7 @@ export const CheckoutPage: React.FC = () => {
                   actions={
                     <Button
                       variant={'outline'}
-                      disabled={Boolean(paymentData)}
+                      disabled={showPaymentForm}
                       onClick={(e) => {
                         e.preventDefault()
                         setShippingAddress(undefined)
@@ -269,20 +230,20 @@ export const CheckoutPage: React.FC = () => {
           </>
         )}
 
-        {!paymentData && (
+        {!showPaymentForm && (
           <Button
             className="self-start"
             disabled={!canGoToPayment}
             onClick={(e) => {
               e.preventDefault()
-              void initiatePaymentIntent('stripe')
+              setShowPaymentForm(true)
             }}
           >
             Ödemeye Git
           </Button>
         )}
 
-        {!paymentData?.['clientSecret'] && error && (
+        {error && (
           <div className="my-8">
             <Message error={error} />
 
@@ -298,57 +259,26 @@ export const CheckoutPage: React.FC = () => {
           </div>
         )}
 
-        <Suspense fallback={<React.Fragment />}>
-          {/* @ts-ignore */}
-          {paymentData && paymentData?.['clientSecret'] && (
-            <div className="pb-16">
-              <h2 className="font-medium text-3xl">Ödeme</h2>
-              {error && <p>{`Hata: ${error}`}</p>}
-              <Elements
-                options={{
-                  appearance: {
-                    theme: 'stripe',
-                    variables: {
-                      borderRadius: '6px',
-                      colorPrimary: '#858585',
-                      gridColumnSpacing: '20px',
-                      gridRowSpacing: '20px',
-                      colorBackground: theme === 'dark' ? '#0a0a0a' : cssVariables.colors.base0,
-                      colorDanger: cssVariables.colors.error500,
-                      colorDangerText: cssVariables.colors.error500,
-                      colorIcon:
-                        theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                      colorText: theme === 'dark' ? '#858585' : cssVariables.colors.base1000,
-                      colorTextPlaceholder: '#858585',
-                      fontFamily: 'Geist, sans-serif',
-                      fontSizeBase: '16px',
-                      fontWeightBold: '600',
-                      fontWeightNormal: '500',
-                      spacingUnit: '4px',
-                    },
-                  },
-                  clientSecret: paymentData['clientSecret'] as string,
-                }}
-                stripe={stripe}
+        {showPaymentForm && (
+          <div className="pb-16">
+            <h2 className="font-medium text-3xl">Ödeme</h2>
+            {error && <p>{`Hata: ${error}`}</p>}
+            <div className="flex flex-col gap-8">
+              <CheckoutForm
+                customerEmail={email}
+                billingAddress={billingAddress}
+                setProcessingPayment={setProcessingPayment}
+              />
+              <Button
+                variant="ghost"
+                className="self-start"
+                onClick={() => setShowPaymentForm(false)}
               >
-                <div className="flex flex-col gap-8">
-                  <CheckoutForm
-                    customerEmail={email}
-                    billingAddress={billingAddress}
-                    setProcessingPayment={setProcessingPayment}
-                  />
-                  <Button
-                    variant="ghost"
-                    className="self-start"
-                    onClick={() => setPaymentData(null)}
-                  >
-                    Ödemeyi İptal Et
-                  </Button>
-                </div>
-              </Elements>
+                Ödemeyi İptal Et
+              </Button>
             </div>
-          )}
-        </Suspense>
+          </div>
+        )}
       </div>
 
       {!cartIsEmpty && (

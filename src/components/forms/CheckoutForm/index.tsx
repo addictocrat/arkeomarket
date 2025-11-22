@@ -2,11 +2,12 @@
 
 import { Message } from '@/components/Message'
 import { Button } from '@/components/ui/button'
-import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { useRouter } from 'next/navigation'
-import React, { useCallback, FormEvent } from 'react'
-import { useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Address } from '@/payload-types'
+import { useRouter } from 'next/navigation'
+import React, { FormEvent, useCallback } from 'react'
 
 type Props = {
   customerEmail?: string
@@ -20,13 +21,10 @@ export const CheckoutForm: React.FC<Props> = ({
   billingAddress,
   setProcessingPayment,
 }) => {
-  const stripe = useStripe()
-  const elements = useElements()
   const [error, setError] = React.useState<null | string>(null)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [termsAccepted, setTermsAccepted] = React.useState(false)
   const router = useRouter()
-  const { clearCart } = useCart()
-  const { confirmOrder } = usePayments()
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -34,100 +32,58 @@ export const CheckoutForm: React.FC<Props> = ({
       setIsLoading(true)
       setProcessingPayment(true)
 
-      if (stripe && elements) {
-        try {
-          const returnUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/checkout/confirm-order${customerEmail ? `?email=${customerEmail}` : ''}`
-
-          const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
-            confirmParams: {
-              return_url: returnUrl,
-              payment_method_data: {
-                billing_details: {
-                  email: customerEmail,
-                  phone: billingAddress?.phone,
-                  address: {
-                    line1: billingAddress?.addressLine1,
-                    line2: billingAddress?.addressLine2,
-                    city: billingAddress?.city,
-                    state: billingAddress?.state,
-                    postal_code: billingAddress?.postalCode,
-                    country: billingAddress?.country,
-                  },
-                },
-              },
-            },
-            elements,
-            redirect: 'if_required',
-          })
-
-          if (paymentIntent && paymentIntent.status === 'succeeded') {
-            try {
-              const confirmResult = await confirmOrder('stripe', {
-                additionalData: {
-                  paymentIntentID: paymentIntent.id,
-                  ...(customerEmail ? { customerEmail } : {}),
-                },
-              })
-
-              if (
-                confirmResult &&
-                typeof confirmResult === 'object' &&
-                'orderID' in confirmResult &&
-                confirmResult.orderID
-              ) {
-                const redirectUrl = `/orders/${confirmResult.orderID}${customerEmail ? `?email=${customerEmail}` : ''}`
-
-                // Clear the cart after successful payment
-                clearCart()
-
-                // Redirect to order confirmation page
-                router.push(redirectUrl)
-              }
-            } catch (err) {
-              console.log({ err })
-              const msg = err instanceof Error ? err.message : 'Something went wrong.'
-              setError(`Error while confirming order: ${msg}`)
-              setIsLoading(false)
-            }
-          }
-          if (stripeError?.message) {
-            setError(stripeError.message)
-            setIsLoading(false)
-          }
-        } catch (err) {
-          const msg = err instanceof Error ? err.message : 'Something went wrong.'
-          setError(`Error while submitting payment: ${msg}`)
-          setIsLoading(false)
-          setProcessingPayment(false)
-        }
+      if (!termsAccepted) {
+        setError('Ödeme ve İade Şartlarını kabul etmelisiniz.')
+        setIsLoading(false)
+        setProcessingPayment(false)
+        return
       }
+      // TODO: Implement payTR payment logic here
+      // For now, we'll just simulate a delay and then stop loading.
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      setError('Payment gateway not implemented yet.')
+      setIsLoading(false)
+      setProcessingPayment(false)
     },
-    [
-      setProcessingPayment,
-      stripe,
-      elements,
-      customerEmail,
-      billingAddress?.phone,
-      billingAddress?.addressLine1,
-      billingAddress?.addressLine2,
-      billingAddress?.city,
-      billingAddress?.state,
-      billingAddress?.postalCode,
-      billingAddress?.country,
-      confirmOrder,
-      clearCart,
-      router,
-    ],
+    [setProcessingPayment, termsAccepted],
   )
 
   return (
     <form onSubmit={handleSubmit}>
       {error && <Message error={error} />}
-      <PaymentElement />
+      <div className="space-y-4 mt-8 ">
+        <div>
+          <Label htmlFor="cardNumber">Kart Numarası</Label>
+          <Input id="cardNumber" placeholder="0000 0000 0000 0000" />
+        </div>
+        <div className="flex gap-4">
+          <div className="w-1/2">
+            <Label htmlFor="expiryDate">Son Kullanım Tarihi</Label>
+            <Input id="expiryDate" placeholder="AY/YIL" />
+          </div>
+          <div className="w-1/2">
+            <Label htmlFor="cvc">CVC</Label>
+            <Input id="cvc" placeholder="123" />
+          </div>
+        </div>
+      </div>
       <div className="mt-8 flex gap-4">
-        <Button disabled={!stripe || isLoading} type="submit" variant="default">
-          {isLoading ? 'Loading...' : 'Pay now'}
+        <Button disabled={isLoading || !termsAccepted} type="submit" variant="default">
+          {isLoading ? 'Yükleniyor...' : 'Ödeme Yap'}
         </Button>
+      </div>
+      <div className="flex gap-4 items-center mt-8 ">
+        <Checkbox
+          id="termsAndConditions"
+          checked={termsAccepted}
+          onCheckedChange={(checked) => setTermsAccepted(!!checked)}
+        />
+        <Label htmlFor="termsAndConditions">
+          <a href="/odeme-ve-iade" target="_blank" rel="noopener noreferrer" className="underline">
+            Geri Ödeme ve İade Şartını
+          </a>{' '}
+          Kabul Ediyorum.
+        </Label>
       </div>
     </form>
   )

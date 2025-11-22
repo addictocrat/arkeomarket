@@ -32,7 +32,7 @@ export async function Footer(props?: Partial<Footer>) {
   return (
     <footer className="text-sm text-neutral-500 dark:text-neutral-400">
       <div className="container">
-        <div className="flex w-full flex-row pb-12 justify-center items-center ">
+        <div className="flex w-full flex-row border-t border-neutral-200 py-12 justify-center items-center ">
           {/* {paytrLogo ? (
             <Media
               resource={paytrLogo}
