@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { Analytics } from '@/components/Analytics'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <main>{children}</main>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
