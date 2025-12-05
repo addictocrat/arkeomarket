@@ -10,12 +10,12 @@ export function OpenCartButton({
 }) {
   return (
     <Button
-      variant="nav"
+      variant="nav_normalcase"
       size="clear"
-      className="navLink relative items-end hover:cursor-pointer"
+      className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
       {...rest}
     >
-      <span>Sepetim</span>
+      <span>SEPETİM</span>
 
       {quantity ? (
         <>

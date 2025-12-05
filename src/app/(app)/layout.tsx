@@ -9,7 +9,15 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { Anek_Bangla } from 'next/font/google'
 import './globals.css'
+
+const anekBangla = Anek_Bangla({
+  subsets: ['bengali', 'latin'],
+  display: 'swap',
+  variable: '--font-anek-bangla',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+})
 
 const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -31,7 +39,9 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      className={[GeistSans.variable, GeistMono.variable].filter(Boolean).join(' ')}
+      className={[GeistSans.variable, GeistMono.variable, anekBangla.variable]
+        .filter(Boolean)
+        .join(' ')}
       lang="en"
       suppressHydrationWarning
     >

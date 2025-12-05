@@ -26,6 +26,7 @@
 @theme {
   --font-sans: var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono), sans-serif;
+  --font-bangla: var(--font-anek-bangla), sans-serif;
 }
 
 @utility container {

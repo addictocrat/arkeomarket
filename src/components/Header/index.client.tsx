@@ -60,7 +60,7 @@ export function HeaderClient({ header }: Props) {
             ) : null}
           </div>
 
-          <div className="flex justify-end md:w-1/3 gap-4">
+          <div className="flex justify-end md:w-1/3 gap-4 ">
             <Suspense fallback={<OpenCartButton />}>
               <Cart />
               {user ? (
@@ -68,7 +68,7 @@ export function HeaderClient({ header }: Props) {
                   asChild
                   variant="nav"
                   size="clear"
-                  className="navLink relative items-end hover:cursor-pointer"
+                  className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
                 >
                   <Link href="/account">Hesabım</Link>
                 </Button>
@@ -79,11 +79,11 @@ export function HeaderClient({ header }: Props) {
                 <>
                   <Button
                     asChild
-                    variant="nav"
+                    variant="nav_normalcase"
                     size="clear"
-                    className="navLink relative items-end hover:cursor-pointer"
+                    className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
                   >
-                    <Link href="/login">Giriş yap</Link>
+                    <Link href="/login">GİRİŞ YAP</Link>
                   </Button>
 
                   {/* <Button asChild>
