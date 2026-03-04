@@ -42,6 +42,8 @@ export const GridTileImage: React.FC<Props> = ({
           imgClassName="h-full w-full object-cover"
           resource={props.media}
           width={80}
+          placeholderSize="thumbnail"
+          disableProgressiveLoad
         />
       ) : null}
       {label ? <Label amount={label.amount} position={label.position} title={label.title} /> : null}

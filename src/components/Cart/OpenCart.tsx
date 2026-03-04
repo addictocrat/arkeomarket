@@ -10,7 +10,7 @@ export function OpenCartButton({
 }) {
   return (
     <Button
-      variant="nav_normalcase"
+      variant="nav"
       size="clear"
       className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
       {...rest}

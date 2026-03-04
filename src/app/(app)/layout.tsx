@@ -7,9 +7,9 @@ import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
-import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import { Anek_Bangla } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 const anekBangla = Anek_Bangla({
@@ -39,9 +39,7 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      className={[GeistSans.variable, GeistMono.variable, anekBangla.variable]
-        .filter(Boolean)
-        .join(' ')}
+      className={[GeistSans.variable, anekBangla.variable].filter(Boolean).join(' ')}
       lang="en"
       suppressHydrationWarning
     >
@@ -60,6 +58,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <Footer />
         </Providers>
         <Analytics />
+        <Script id="iyzico-config" strategy="afterInteractive">
+          {`window.iyz = { token: 'e3bf7207-9abc-4674-82df-60bb8afc4bed', position: 'bottomLeft', ideaSoft: false, pwi: true};`}
+        </Script>
+        <Script
+          src="https://static.iyzipay.com/buyer-protection/buyer-protection.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

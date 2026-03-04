@@ -102,7 +102,7 @@ export default {
         },
       }),
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
+        mono: ['var(--font-anek-bangla)'],
         sans: ['var(--font-geist-sans)'],
         bangla: ['var(--font-anek-bangla)'],
       },

@@ -16,6 +16,11 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        // Cloudflare R2 storage
+        hostname: '**.r2.cloudflarestorage.com',
+        protocol: 'https',
+      },
     ],
   },
   reactStrictMode: true,

@@ -54,6 +54,8 @@ export const Gallery: React.FC<Props> = ({ gallery }) => {
           resource={gallery[current].image}
           className="w-full"
           imgClassName="w-full rounded-lg"
+          placeholderSize="medium"
+          size="(max-width: 768px) 100vw, 50vw"
         />
       </div>
 

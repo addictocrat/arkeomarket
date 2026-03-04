@@ -46,6 +46,7 @@ export const MediaBlock: React.FC<
         imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
         resource={media}
         src={staticImage}
+        placeholderSize="medium"
       />
       {caption && (
         <div

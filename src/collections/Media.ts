@@ -37,5 +37,25 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: path.resolve(dirname, '../../public/media'),
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 100,
+        height: undefined,
+        position: 'centre',
+      },
+      {
+        name: 'medium',
+        width: 720,
+        height: undefined,
+        position: 'centre',
+      },
+      {
+        name: 'large',
+        width: 1440,
+        height: undefined,
+        position: 'centre',
+      },
+    ],
   },
 }

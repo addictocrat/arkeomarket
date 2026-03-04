@@ -25,44 +25,39 @@ export function HeaderClient({ header }: Props) {
 
   return (
     <div className="relative z-20 border-b">
-      <nav className="flex items-center md:items-end justify-between container pt-2">
-        <div className="block flex-none md:hidden">
-          <Suspense fallback={null}>
-            <MobileMenu menu={menu} />
-          </Suspense>
-        </div>
-        <div className="flex w-full items-end justify-between">
-          <div className="flex w-full items-end gap-6 md:w-1/3">
-            <Link
-              className="flex w-full items-center justify-center pt-4 pb-4 md:w-auto font-bold"
-              href="/"
-            >
-              <LogoIcon className="w-32 h-auto" />
-            </Link>
-            {menu.length ? (
-              <ul className="hidden gap-4 text-sm md:flex md:items-center">
-                {menu.map((item) => (
-                  <li key={item.id}>
-                    <CMSLink
-                      {...item.link}
-                      size={'clear'}
-                      className={cn('relative navLink', {
-                        active:
-                          item.link.url && item.link.url !== '/'
-                            ? pathname.includes(item.link.url)
-                            : false,
-                      })}
-                      appearance="nav"
-                    />
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
+      <nav className="flex items-center justify-between py-2 px-4 md:pt-4 md:pb-0 md:px-16">
+        {/* Logo — always on the left */}
+        <Link className="flex items-center py-1 md:py-4 font-bold" href="/">
+          <LogoIcon className="w-28 md:w-32 h-auto" />
+        </Link>
 
-          <div className="flex justify-end md:w-1/3 gap-4 ">
-            <Suspense fallback={<OpenCartButton />}>
-              <Cart />
+        {/* Desktop centre nav */}
+        {menu.length ? (
+          <ul className="hidden gap-4 text-md md:flex md:items-center">
+            {menu.map((item) => (
+              <li key={item.id}>
+                <CMSLink
+                  {...item.link}
+                  size={'clear'}
+                  className={cn('relative navLink', {
+                    active:
+                      item.link.url && item.link.url !== '/'
+                        ? pathname.includes(item.link.url)
+                        : false,
+                  })}
+                  appearance="nav"
+                />
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        {/* Right side */}
+        <div className="flex items-center gap-3">
+          <Suspense fallback={<OpenCartButton />}>
+            <Cart />
+            {/* Auth — desktop only */}
+            <div className="hidden md:flex items-center gap-4">
               {user ? (
                 <Button
                   asChild
@@ -73,24 +68,22 @@ export function HeaderClient({ header }: Props) {
                   <Link href="/account">Hesabım</Link>
                 </Button>
               ) : (
-                // <Button asChild variant="outline">
-                //   <Link href="/logout">Çıkış yap</Link>
-                // </Button>
-                <>
-                  <Button
-                    asChild
-                    variant="nav_normalcase"
-                    size="clear"
-                    className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
-                  >
-                    <Link href="/login">GİRİŞ YAP</Link>
-                  </Button>
-
-                  {/* <Button asChild>
-                    <Link href="/create-account">Hesap oluştur</Link>
-                  </Button> */}
-                </>
+                <Button
+                  asChild
+                  variant="nav"
+                  size="clear"
+                  className="navLink relative items-end hover:cursor-pointer font-anek-bangla"
+                >
+                  <Link href="/login">GİRİŞ YAP</Link>
+                </Button>
               )}
+            </div>
+          </Suspense>
+
+          {/* Hamburger — mobile only, always on the right */}
+          <div className="md:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={menu} />
             </Suspense>
           </div>
         </div>
