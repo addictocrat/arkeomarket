@@ -1,6 +1,7 @@
 import { Search } from '@/components/Search'
 import { sorting } from '@/lib/constants'
 import React, { Suspense } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -8,7 +9,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { use } from 'react'
@@ -33,7 +33,9 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
     <div className="container flex flex-col gap-8 my-16 pb-4">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
         <div className="w-full md:w-1/2 flex-1">
-          <Search />
+          <Suspense fallback={null}>
+            <Search />
+          </Suspense>
         </div>
         <div className="flex gap-4 w-full md:w-auto justify-end">
           {/* Categories Dropdown */}
@@ -45,11 +47,11 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
               <DropdownMenuGroup>
                 <DropdownMenuLabel>Kategoriler</DropdownMenuLabel>
                 <DropdownMenuItem asChild key="all">
-                  <a href="/shop">Tümü</a>
+                  <Link href="/shop">Tümü</Link>
                 </DropdownMenuItem>
                 {categories.map((cat: any) => (
                   <DropdownMenuItem asChild key={cat.id}>
-                    <a href={`/shop?category=${cat.id}`}>{cat.title}</a>
+                    <Link href={`/shop?category=${cat.id}`}>{cat.title}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
@@ -65,7 +67,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
                 <DropdownMenuLabel>Sırala</DropdownMenuLabel>
                 {sorting.map((sort) => (
                   <DropdownMenuItem asChild key={sort.slug || 'default'}>
-                    <a href={sort.slug ? `/shop?sort=${sort.slug}` : '/shop'}>{sort.title}</a>
+                    <Link href={sort.slug ? `/shop?sort=${sort.slug}` : '/shop'}>{sort.title}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
