@@ -1,12 +1,16 @@
-# Arkeomarket e-ticaret çözümü
+# arkeomarket.com
 
-arkeomarket.com
+Payload (Typescript) açık kaynak e-ticaret altyapısını kullanır.
+Kolay ürün, sipariş ve üye yönetimi.
+Türkçedir ve TL para birimi kullanır. PayTR / İyzico entegrasyonu yapılmıştır.
 
-Payload Ecommerce Türkçe halidir.
-PayTR / İyzico entegrasyonu yapılmıştır.
-TRY para birimi kullanmaktadır.
+Bağlantılar:
 
-Bazı özellikleri:
+Postgres veya Mongodb bağlanabilir.
+S3 veya persistent storage kullanabilir.
+Nodemailer ile mail gönderimi.
+
+Payload CMS ile gelen diğer özellikler:
 
 - [Pre-configured Payload Config]
 - [Authentication]
@@ -30,4 +34,4 @@ Bazı özellikleri:
 
 ## Özel
 
-ig/homelabber
+[Linkedin](https://www.linkedin.com/in/okandikkulak/)
